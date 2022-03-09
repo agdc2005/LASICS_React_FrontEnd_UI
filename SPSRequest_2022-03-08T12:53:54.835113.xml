@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SPS_Request>
+  <Request>studyHistoricalRequest</Request>
+  <General>
+    <PlanDurationInDays>1</PlanDurationInDays>
+    <PlanStartEpochDate>20220228T00:00:00</PlanStartEpochDate>
+    <ProcessingType>LASICS</ProcessingType>
+  </General>
+  <Reference>
+    <Name>AQUA</Name>
+    <TargetType>LEO-LASICS</TargetType>
+    <Constraints>
+      <Constraint>
+        <ConstraintName>max_duration</ConstraintName>
+        <ConstraintValue>173</ConstraintValue>
+        <ConstraintReason>This is a test, just a test.  Should be removed for production</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>max_solar_zenith_angle</ConstraintName>
+        <ConstraintValue>70</ConstraintValue>
+        <ConstraintReason>This is maximum angle before the SignalToNoise ratio goes too low in the measurement</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>max_time_diff_ref_and_target</ConstraintName>
+        <ConstraintValue>15</ConstraintValue>
+        <ConstraintReason>Time before the scene changes in a significant way between measurements</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>min_duration</ConstraintName>
+        <ConstraintValue>10</ConstraintValue>
+        <ConstraintReason>Event can not be processed due to lack of samples to use in inter-calibration</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>ref_clat_max</ConstraintName>
+        <ConstraintValue>30</ConstraintValue>
+        <ConstraintReason>mid-lattitude</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>ref_clat_min</ConstraintName>
+        <ConstraintValue>-30</ConstraintValue>
+        <ConstraintReason>mid-lattitude</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>ref_instr_2x_scan_angle</ConstraintName>
+        <ConstraintValue>110</ConstraintValue>
+        <ConstraintReason>Default LEO is CERES as reference</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>target_based_ref_instr_scan_parts</ConstraintName>
+        <ConstraintValue>2</ConstraintValue>
+        <ConstraintReason>Default for CPF.</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>target_daylight_flag</ConstraintName>
+        <ConstraintValue>1</ConstraintValue>
+        <ConstraintReason>Take Daylight Measurements Only</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>target_instr_2x_scan_angle</ConstraintName>
+        <ConstraintValue>110</ConstraintValue>
+        <ConstraintReason>Default value for CPF GOE script.</ConstraintReason>
+      </Constraint>
+      <Constraint>
+        <ConstraintName>target_travel_time</ConstraintName>
+        <ConstraintValue>10</ConstraintValue>
+        <ConstraintReason>Default value for CPF GOE script.</ConstraintReason>
+      </Constraint>
+    </Constraints>
+  </Reference>
+  <Targets>
+    <Target>
+      <TargetName>NOAA 20</TargetName>
+      <TargetType>LEO-LASICS</TargetType>
+      <Priority>5</Priority>
+      <Constraints>
+        <Constraint>
+          <ConstraintName>max_solar_zenith_angle</ConstraintName>
+          <ConstraintValue>70</ConstraintValue>
+          <ConstraintReason>This is maximum angle before the SignalToNoise ratio goes too low in the measurement</ConstraintReason>
+        </Constraint>
+        <Constraint>
+          <ConstraintName>max_time_diff_ref_and_target</ConstraintName>
+          <ConstraintValue>15</ConstraintValue>
+          <ConstraintReason>Time before the scene changes in a significant way between measurements</ConstraintReason>
+        </Constraint>
+        <Constraint>
+          <ConstraintName>min_duration</ConstraintName>
+          <ConstraintValue>10</ConstraintValue>
+          <ConstraintReason>Event can not be processed due to lack of samples to use in inter-calibration</ConstraintReason>
+        </Constraint>
+        <Constraint>
+          <ConstraintName>ref_instr_2x_scan_angle</ConstraintName>
+          <ConstraintValue>110</ConstraintValue>
+          <ConstraintReason>Default LEO is CERES as reference</ConstraintReason>
+        </Constraint>
+        <Constraint>
+          <ConstraintName>target_based_ref_instr_scan_parts</ConstraintName>
+          <ConstraintValue>2</ConstraintValue>
+          <ConstraintReason>Default for CPF.</ConstraintReason>
+        </Constraint>
+        <Constraint>
+          <ConstraintName>target_daylight_flag</ConstraintName>
+          <ConstraintValue>1</ConstraintValue>
+          <ConstraintReason>Take Daylight Measurements Only</ConstraintReason>
+        </Constraint>
+        <Constraint>
+          <ConstraintName>target_instr_2x_scan_angle</ConstraintName>
+          <ConstraintValue>110</ConstraintValue>
+          <ConstraintReason>Default value for CPF GOE script.</ConstraintReason>
+        </Constraint>
+        <Constraint>
+          <ConstraintName>target_travel_time</ConstraintName>
+          <ConstraintValue>10</ConstraintValue>
+          <ConstraintReason>Default value for CPF GOE script.</ConstraintReason>
+        </Constraint>
+      </Constraints>
+    </Target>
+  </Targets>
+</SPS_Request>
