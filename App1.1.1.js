@@ -11,7 +11,7 @@ import { EmailAddressField } from './components/EmailAddressField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-
+import { landandgeoTargets } from "./utils/target2Constants.js";
 
 function App() {
   const [references,setReferences] = useState([]);
@@ -156,6 +156,7 @@ function App() {
       // send POST request to Flask route echoJSON for testing 
       // Send data to the backend via POST if isValid is True
       if (isValid) {
+        save();
         console.log('Form has Valid Input: ' + isValid)
         fetch('/echoJSON', { 
              method: 'POST', // or 'PUT'
@@ -169,7 +170,6 @@ function App() {
       if (!isValid) {
         console.log('Form has INValid Input: ')
       };
-
   };
 
   const formValidation = () =>{
@@ -257,9 +257,17 @@ function App() {
   }; 
 
   const save = () =>{
+        document.querySelector("#submitButton").disabled=true;
         var msg = document.getElementById('msg');
-        msg.innerHTML = 'Request Created and  Submitted and the button disabled &#9786;';
-  };
+        msg.textContent = 'Request Created and  Submitted and the button disabled &#9786;';
+  }
+
+  const resetForm = () =>{
+        document.querySelector("#submitButton").disabled=false;
+        document.querySelector("#msg").textContent=" ";
+        setRefval("AQUA");
+        setTarval("NOAA 20");
+  }
 
   return (
     <div className="App">
@@ -268,7 +276,7 @@ function App() {
     <form onSubmit={handleSubmit} >
 
      <h4> Target 1 </h4>
-     <References references={references} onRefChange={setRefval}/>
+     <References references={references} onRefChange={setRefval} refval={refval}/>
      <br/>
      {Object.keys(refvalErr).map((key)=>{
         return <div style={{color: "red"}}>{refvalErr[key]}</div>
@@ -289,7 +297,7 @@ function App() {
       //console.log(date);
       //console.log(ISOdate);
       }
-      } />
+      } maxDate={new Date()} />
 
      <h4> Days in Plan </h4>
      <DaysInPlan daysinplan={daysinplan} onDIPChange={setDIPval}/>
@@ -298,9 +306,13 @@ function App() {
         return <div style={{color: "red"}}>{dipvalErr[key]}</div>
      })}
 
-     <h4> Maximum Time Difference between Reference and Target Meas. (Minutes) </h4>
-     <MaxTimeDiffBetnRefandTar maxtimediff={maxtimediff} onTimeDiffChange={setTimeDiffval}/>
-
+     {!landandgeoTargets.includes(tarval) &&
+      <div> 
+        <h4> Maximum Time Difference between Reference and Target Meas. (Minutes) </h4>
+        <MaxTimeDiffBetnRefandTar maxtimediff={maxtimediff} onTimeDiffChange={setTimeDiffval}/>
+      </div>
+     } 
+     
      <h4> Maximum Solar Zenith Angle (Deg.) </h4>
      <MaxSolarZenithAngle maxsza={maxsza} onSZAChange={setSZAval}/>
 
@@ -314,7 +326,8 @@ function App() {
         return <div style={{color: "red"}}>{emailvalErr[key]} </div>
      })}
      <br/><br/><br/>
-     <input type="submit" value="Create & Submit LASICS-SPS Request" onclick='save(); this.disabled = true;'></input>
+     <input id="submitButton" type="submit" value="Create & Submit LASICS-SPS Request"></input>
+     <button id="reset" onClick={resetForm}>RESET LASICS-SPS FORM</button>
     </form>
     <p id="msg"></p>
     </div>
