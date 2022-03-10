@@ -18,7 +18,7 @@ export const References = ({references,refval,onRefChange}) => {
   //<div>{targets.map(s => (<li>{s}</li>))}</div>
   <div>
      <label for="references">Choose Target 1 : </label>
-     <select name="references" id="references"  onChange={handleRefChange}>
+     <select name="references" id="references"  onChange={handleRefChange} value={refval}>
        {references.map((s) => <option key={s.toString()} value = {s}>{s}</option>)}
      </select>
   </div>
