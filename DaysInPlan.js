@@ -18,7 +18,7 @@ export const DaysInPlan = ({ daysinplan, dipval, onDIPChange }) => {
   return (
   <div>
      <label for="daysinplan">Choose Number of Days in Plan: </label>
-     <select name="daysinplan" id="daysinplan" onChange={handleDIPChange}>
+     <select name="daysinplan" id="daysinplan" onChange={handleDIPChange} value={dipval}>
        {daysinplan.map(s => <option key={s.toString()} value = {s}>{s}</option>)}
      </select>
   </div>
