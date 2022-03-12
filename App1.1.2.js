@@ -55,6 +55,10 @@ function App() {
   //var SPSPlanStartDate = now.format('YYYYMMDD'+'T00:00:00');
 
   useEffect(() => {
+    getMaxDate();
+  }, [dipval]);
+
+  useEffect(() => {
     //fetch("/getTargetNames").then(
     fetch("/serveTargets").then((res) =>
       res.json().then((data) => {
@@ -268,7 +272,8 @@ function App() {
   const save = () => {
     document.querySelector("#submitButton").disabled = true;
     var msg = document.getElementById("msg");
-    msg.textContent = "Request Created and  Submitted and the button disabled 😀";
+    msg.textContent =
+      "Request Created and  Submitted and the button disabled 😀";
   };
 
   const resetForm = () => {
@@ -280,11 +285,11 @@ function App() {
   };
 
   const getMaxDate = () => {
-    let currentDate = new Date()
+    let currentDate = new Date();
     currentDate.setDate(currentDate.getDate() - dipval - 1);
     setMaxDate(currentDate);
     console.log("dipval is: " + dipval);
-    console.log("Max Plan Start Date is Set to "+ currentDate); 
+    console.log("Max Plan Start Date is Set to " + currentDate);
   };
 
   return (
@@ -293,7 +298,11 @@ function App() {
 
       <form onSubmit={handleSubmit}>
         <h4> Target 1 </h4>
-        <References references={references} onRefChange={setRefval} refval={refval} />
+        <References
+          references={references}
+          onRefChange={setRefval}
+          refval={refval}
+        />
         <br />
         {Object.keys(refvalErr).map((key) => {
           return <div style={{ color: "red" }}>{refvalErr[key]}</div>;
@@ -307,7 +316,11 @@ function App() {
         })}
 
         <h4> Days in Plan </h4>
-        <DaysInPlan daysinplan={daysinplan} onDIPChange={(value)=>{setDIPval(value); getMaxDate()}} value={dipval} />
+        <DaysInPlan
+          daysinplan={daysinplan}
+          onDIPChange={setDIPval}
+          dipval={dipval}
+        />
         <br />
         {Object.keys(dipvalErr).map((key) => {
           return <div style={{ color: "red" }}>{dipvalErr[key]}</div>;
@@ -327,8 +340,8 @@ function App() {
           maxDate={maxDate}
         />
 
-{/* A JSX comment */}
-{/* Conditional Rendering the Maximum Time Difference Component */}
+        {/* A JSX comment */}
+        {/* Conditional Rendering the Maximum Time Difference Component */}
         {!landandgeoTargets.includes(tarval) && (
           <div>
             <h4>
@@ -336,7 +349,10 @@ function App() {
               Maximum Time Difference between Reference and Target Meas.
               (Minutes){" "}
             </h4>
-            <MaxTimeDiffBetnRefandTar  maxtimediff={maxtimediff} onTimeDiffChange={setTimeDiffval} />
+            <MaxTimeDiffBetnRefandTar
+              maxtimediff={maxtimediff}
+              onTimeDiffChange={setTimeDiffval}
+            />
           </div>
         )}
 
@@ -355,8 +371,14 @@ function App() {
         <br />
         <br />
         <br />
-        <input  id='submitButton' type='submit' value='Create & Submit LASICS-SPS Request'></input>
-        <button id='resetButton' type='button' onClick={resetForm}>RESET LASICS-SPS Form</button>
+        <input
+          id='submitButton'
+          type='submit'
+          value='Create & Submit LASICS-SPS Request'
+        ></input>
+        <button id='resetButton' type='button' onClick={resetForm}>
+          RESET LASICS-SPS Form
+        </button>
       </form>
       <p id='msg'></p>
     </div>
