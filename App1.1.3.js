@@ -121,14 +121,21 @@ function App() {
     );
   }, []);
 
-  useEffect(() => {
+  const updateSciencePlanID = async () => {
     fetch("/serveSciencePlanID").then((res) =>
       res.json().then((data) => {
         setSciencePlanID(data);
-        console.log(data)
-      })
-    );
-  }, []);
+        console.log(data);
+      }) )
+   }
+
+  const updateSciencePlanStatus = async () => {
+    fetch("/serveSciencePlanStatus").then((res) =>
+      res.json().then((data) => {
+        setSciencePlanStatus(data);
+        console.log(data);
+      }) )
+   }
 
   useEffect(() => {
     let getPlanandPlot = true;
@@ -216,7 +223,11 @@ function App() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(jsonData),
-      }).then(response => console.log(response));
+      }).then(response => {
+         console.log(response); 
+         updateSciencePlanID();
+         updateSciencePlanStatus();
+      }) 
     }
 
     if (!isValid) {
@@ -311,15 +322,19 @@ function App() {
     document.querySelector("#submitButton").disabled = true;
     var msg = document.getElementById("msg");
     msg.textContent =
-      "Request Created and  Submitted and the button disabled 😀";
+      "Request Created and  Submitted and the button disabled. Click RESET button to create a new Request😀";
   };
 
   const resetForm = () => {
     document.querySelector("#submitButton").disabled = false;
     document.querySelector("#msg").textContent = "";
+    document.querySelector("#sciencePlanID").textContent = "";
+    document.querySelector("#sciencePlanStatus").textContent = "";
     //document.querySelector("#mainForm").reset();
     setRefval("AQUA");
     setTarval("NOAA 20");
+    setSciencePlanID(0);
+    setSciencePlanStatus(0);
   };
 
   const getMaxDate = () => {
@@ -332,13 +347,13 @@ function App() {
   };
 
   const getSciencePlanID = () => {
-    setSciencePlanID();
-    console.log()
+    document.querySelector("#sciencePlanID").textContent =`Science Plan ID: ${sciencePlanID}` ;
+    console.log(sciencePlanID)
   };
 
   const getSciencePlanStatus = () => {
-    setSciencePlanStatus();
-    console.log()
+    document.querySelector("#sciencePlanStatus").textContent =`Science Plan Status: ${sciencePlanStatus}` ;
+    console.log(sciencePlanStatus)
   };
 
   return (
@@ -419,14 +434,16 @@ function App() {
         })}
         <br />
         <br />
-        <input id='submitButton' type='submit' value='Create & Submit LASICS-SPS Request' ></input>
-        <button id='resetButton' type='button' onClick={resetForm}> RESET LASICS-SPS Form </button>
+        <input id='submitButton' type='submit' value='Submit LASICS-SPS Request' ></input>
+        <button id='resetButton' type='button' onClick={resetForm}> RESET </button>
         <br />
         <br />
-        <button id='planIDButton' type='button' onClick={getSciencePlanID}> LASICS SCIENCE PLAN ID  </button>
+        <button id='planIDButton' type='button' onClick={getSciencePlanID}> Get LASICS SCIENCE PLAN ID  </button>
         <button id='planStatusButton' type='button' onClick={getSciencePlanStatus}> LASICS SCIENCE PLAN STATUS </button>
       </form>
       <p id='msg'></p>
+      <div id='sciencePlanID'></div>
+      <div id='sciencePlanStatus'></div>
     </div>
   );
 }
